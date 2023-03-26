@@ -3,3 +3,4 @@ NODE_ENV = "dev"
 URLDB = "mongodb+srv://<user>:<password>@buensaborutn.rlxrfe2.mongodb.net/?retryWrites=true&w=majority"
 TOKEN_EXPIRE = '48h'
 SEED = 'colocar_la_semilla_aqui'
+JWT_SECRET = 'secreto jwt'

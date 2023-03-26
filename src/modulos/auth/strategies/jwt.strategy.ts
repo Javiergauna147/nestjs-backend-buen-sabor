@@ -16,16 +16,13 @@ export class JwtStrategy extends PassportStrategy( Strategy ) {
         @InjectModel(Usuario.name) private usuarioModel: Model<UsuarioDocument>,
         configService: ConfigService
     ) {
-
         super({
             secretOrKey: configService.get('JWT_SECRET'),
             jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
         });
     }
 
-
     async validate( payload: JwtPayload ): Promise<Usuario> {
-        
         const { id } = payload;
 
         const user = await this.usuarioModel.findById(id);
