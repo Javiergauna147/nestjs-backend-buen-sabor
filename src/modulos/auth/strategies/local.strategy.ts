@@ -1,7 +1,8 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
-import { ExtractJwt, Strategy } from 'passport-jwt';
+import { ExtractJwt } from 'passport-jwt';
+import { Strategy } from 'passport-local';
 import { JwtPayload } from '../interfaces/jwt-payload.interface';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
@@ -9,7 +10,7 @@ import { Usuario, UsuarioDocument } from '../schemas/usuario.schema';
 
 
 @Injectable()
-export class JwtStrategy extends PassportStrategy( Strategy ) {
+export class LocalStrategy extends PassportStrategy( Strategy ) {
 
     constructor(
         @InjectModel(Usuario.name) private usuarioModel: Model<UsuarioDocument>,
