@@ -25,6 +25,11 @@ export class RubroArticuloService {
         }
     }
 
+    async findAll() {
+        return this.rubroArticuloModel.find();
+    }
+
+
     private handleExceptions( error: any ) {
         if ( error.code === 11000 ) {
           throw new BadRequestException(`rubroArticulo exists in db ${ JSON.stringify( error.keyValue ) }`);
