@@ -1,7 +1,5 @@
 import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { Auth } from 'src/modulos/auth/decorators/auth.decorator';
-import { GetUser } from 'src/modulos/auth/decorators/get-user.decorator';
-import { Usuario } from 'src/modulos/auth/schemas/usuario.schema';
 import { CreateRubroArticuloDto } from './dto/create-rubro-articulo.dto';
 import { RubroArticuloService } from './rubro-articulo.service';
 
