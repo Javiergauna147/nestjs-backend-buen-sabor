@@ -1,4 +1,4 @@
-import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+import { Prop, Schema, SchemaFactory, raw } from "@nestjs/mongoose";
 import mongoose, { HydratedDocument } from "mongoose";
 import { RubroProductoManufacturado } from '../../rubro-producto-manuacturado/schemas/rubro-producto-manufacturado.schema';
 
@@ -23,6 +23,14 @@ export class ProductoManufacturado {
 
     @Prop({type: mongoose.Schema.Types.ObjectId, ref: 'RubroProductoManufacturado'})
     rubro: RubroProductoManufacturado;
+
+    @Prop({type: [raw({
+            cantidad: { type: Number },
+            articulo: {type: mongoose.Schema.Types.ObjectId, ref: 'Articulo'}
+        })],
+        _id: false
+    })
+    articulos: { cantidad: number, articulo: string }[]
 
 }
 

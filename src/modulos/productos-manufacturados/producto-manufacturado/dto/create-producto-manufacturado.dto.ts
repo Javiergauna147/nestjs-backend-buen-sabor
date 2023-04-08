@@ -17,4 +17,9 @@ export class CreateProductoManufacturadoDto {
     @IsMongoId()
     rubro: string;
 
+    @ValidateNested({
+        each: true
+    })
+    articulos: {cantidad: number, articulo: string}[]
+
 }
