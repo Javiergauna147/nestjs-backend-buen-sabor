@@ -15,14 +15,8 @@ export class CreateProductoManufacturadoDto {
     @IsNumber()
     precio: number;
 
-    @IsMongoId({
-        each: true
-    })
-    rubros: string[];
+    @IsMongoId()
+    rubro: string;
 
-    @ValidateNested({
-        each: true
-    })
-    rubrosEmbebidos: RubroProductoManufacturado[];
 
 }

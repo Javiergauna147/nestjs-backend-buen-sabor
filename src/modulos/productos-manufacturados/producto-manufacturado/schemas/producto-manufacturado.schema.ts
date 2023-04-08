@@ -21,11 +21,8 @@ export class ProductoManufacturado {
     @Prop()
     precio: number;
 
-    @Prop({type: [{type: mongoose.Schema.Types.ObjectId, ref: 'RubroProductoManufacturado'}]})
-    rubros: RubroProductoManufacturado[];
-
-    @Prop()
-    rubrosEmbebidos: RubroProductoManufacturado[];
+    @Prop({type: mongoose.Schema.Types.ObjectId, ref: 'RubroProductoManufacturado'})
+    rubro: RubroProductoManufacturado;
 
 }
 
