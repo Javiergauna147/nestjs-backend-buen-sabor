@@ -1,5 +1,4 @@
 import { IsMongoId, IsNumber, IsString, ValidateNested } from "class-validator";
-import { RubroProductoManufacturado } from '../../rubro-producto-manuacturado/schemas/rubro-producto-manufacturado.schema';
 
 export class CreateProductoManufacturadoDto {
 
@@ -17,6 +16,5 @@ export class CreateProductoManufacturadoDto {
 
     @IsMongoId()
     rubro: string;
-
 
 }

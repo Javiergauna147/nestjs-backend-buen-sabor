@@ -8,6 +8,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { AuthModule } from './modulos/auth/auth.module';
 import { ArticulosModule } from './modulos/articulos/articulos.module';
 import { ProductosManufacturadosModule } from './modulos/productos-manufacturados/productos-manufacturados.module';
+import { PedidosModule } from './modulos/pedidos/pedidos.module';
 
 @Module({
   imports: [
@@ -15,7 +16,8 @@ import { ProductosManufacturadosModule } from './modulos/productos-manufacturado
     MongooseModule.forRoot(process.env.URLDB),
     AuthModule,
     ArticulosModule,
-    ProductosManufacturadosModule
+    ProductosManufacturadosModule,
+    PedidosModule
   ],
   controllers: [AppController],
   providers: [AppService],
