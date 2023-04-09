@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { EstadoPedidoService } from './estado-pedido.service';
 import { Auth } from 'src/modulos/auth/decorators/auth.decorator';
-import { CreateEstadoPedidoDto } from './dto/estado-pedido.dto';
+import { CreateEstadoPedidoDto } from './dto/create-estado-pedido.dto';
 
 @Controller('estado-pedido')
 export class EstadoPedidoController {

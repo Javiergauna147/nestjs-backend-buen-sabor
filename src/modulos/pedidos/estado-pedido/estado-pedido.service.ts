@@ -2,7 +2,7 @@ import { BadRequestException, Injectable, InternalServerErrorException } from '@
 import { InjectModel } from '@nestjs/mongoose';
 import { EstadoPedido } from './schemas/estado-pedido.schema';
 import { Model } from 'mongoose';
-import { CreateEstadoPedidoDto } from './dto/estado-pedido.dto';
+import { CreateEstadoPedidoDto } from './dto/create-estado-pedido.dto';
 import { error } from 'console';
 
 @Injectable()
