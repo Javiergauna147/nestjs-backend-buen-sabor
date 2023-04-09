@@ -8,21 +8,16 @@ export type PedidoDocument = HydratedDocument<Pedido>
 @Schema()
 export class Pedido {
 
-    @Prop({type: mongoose.Schema.Types.ObjectId, ref: 'Usuario'})
+    @Prop({type: mongoose.Schema.Types.ObjectId, ref: 'Usuario', required: true, index: true})
     cliente: Usuario;
 
     @Prop({type: mongoose.Schema.Types.ObjectId, ref: 'EstadoPedido'})
     estado: EstadoPedido;
 
-    @Prop({type: [raw({
-            cantidad: { type: Number },
-            producto: {type: mongoose.Schema.Types.ObjectId, ref: 'ProductoManufacturado'}
-        })],
-        _id: false
-    })
+    @Prop({type: [{cantidad: {type: Number}, producto: {type: mongoose.Schema.Types.ObjectId, ref: 'ProductoManufacturado'}}], _id: false})
     productos: { cantidad: number, producto: string }[]
     
-    @Prop()
+    @Prop({required: true})
     precio: number;
 }
 

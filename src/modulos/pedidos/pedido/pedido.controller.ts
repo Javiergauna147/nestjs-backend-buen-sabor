@@ -1,9 +1,9 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { PedidoService } from './pedido.service';
 import { GetUser } from 'src/modulos/auth/decorators/get-user.decorator';
 import { Auth } from 'src/modulos/auth/decorators/auth.decorator';
 import { CreatePedidoDto } from './dto/create-pedido.dto';
-import { Usuario, UsuarioDocument } from 'src/modulos/auth/schemas/usuario.schema';
+import { UsuarioDocument } from 'src/modulos/auth/schemas/usuario.schema';
 
 @Controller('pedido')
 export class PedidoController {
@@ -13,6 +13,12 @@ export class PedidoController {
     @Auth()
     create( @Body() createPedidoDto: CreatePedidoDto, @GetUser() user: UsuarioDocument ){
         createPedidoDto.cliente = user.id;
-        console.log(createPedidoDto)
+        return this.pedidoService.create(createPedidoDto);
+    }
+
+    @Get('find-all')
+    @Auth()
+    findAll( @GetUser() user: UsuarioDocument ){
+        return this.pedidoService.findAll(user.id);
     }
 }

@@ -6,6 +6,7 @@ import { AuthModule } from '../auth/auth.module';
 import { EstadoPedido, EstadoPedidoSchema } from './estado-pedido/schemas/estado-pedido.schema';
 import { PedidoController } from './pedido/pedido.controller';
 import { PedidoService } from './pedido/pedido.service';
+import { Pedido, PedidoSchema } from './pedido/schemas/pedido.schema';
 
 @Module({
   controllers: [EstadoPedidoController, PedidoController],
@@ -13,6 +14,7 @@ import { PedidoService } from './pedido/pedido.service';
   imports: [
     MongooseModule.forFeature([
       {name: EstadoPedido.name, schema: EstadoPedidoSchema},
+      {name: Pedido.name, schema: PedidoSchema}
     ]),
     AuthModule
   ]

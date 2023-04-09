@@ -1,3 +1,4 @@
+import { Type } from "class-transformer";
 import { IsMongoId, IsNumber, IsOptional, ValidateNested } from "class-validator";
 
 export class CreatePedidoDto {
@@ -12,10 +13,19 @@ export class CreatePedidoDto {
     @ValidateNested({
         each: true
     })
-    productos: {cantidad: number, producto: string}[]
+    @Type(() => Productos)
+    productos: Productos[]
 
     //TODO: Calcular precio desde el backend
     @IsNumber()
+    @IsOptional()
     precio: number;
 
+}
+
+class Productos {
+    @IsNumber()
+    cantidad: number;
+    @IsMongoId()
+    producto: string;
 }
