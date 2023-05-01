@@ -7,6 +7,7 @@ import { EstadoPedido, EstadoPedidoSchema } from './estado-pedido/schemas/estado
 import { PedidoController } from './pedido/pedido.controller';
 import { PedidoService } from './pedido/pedido.service';
 import { Pedido, PedidoSchema } from './pedido/schemas/pedido.schema';
+import { ProductosManufacturadosModule } from '../productos-manufacturados/productos-manufacturados.module';
 
 @Module({
   controllers: [EstadoPedidoController, PedidoController],
@@ -16,7 +17,8 @@ import { Pedido, PedidoSchema } from './pedido/schemas/pedido.schema';
       {name: EstadoPedido.name, schema: EstadoPedidoSchema},
       {name: Pedido.name, schema: PedidoSchema}
     ]),
-    AuthModule
+    AuthModule,
+    ProductosManufacturadosModule
   ]
 })
 export class PedidosModule {}

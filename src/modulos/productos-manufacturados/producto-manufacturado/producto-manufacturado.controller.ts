@@ -18,4 +18,9 @@ export class ProductoManufacturadoController {
     findAll() {
         return this.productoManufacturadoService.findAll();
     }
+    @Get('find')
+    @Auth()
+    find(id: string) {
+        return this.productoManufacturadoService.find(id);
+    }
 }

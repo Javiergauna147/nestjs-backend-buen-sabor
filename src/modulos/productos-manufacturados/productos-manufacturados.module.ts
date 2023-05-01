@@ -17,6 +17,9 @@ import { AuthModule } from '../auth/auth.module';
       {name: ProductoManufacturado.name, schema: ProductoManufacturadoSchema}
     ]),
     AuthModule
+  ],
+  exports: [
+    ProductoManufacturadoService
   ]
 })
 export class ProductosManufacturadosModule {}

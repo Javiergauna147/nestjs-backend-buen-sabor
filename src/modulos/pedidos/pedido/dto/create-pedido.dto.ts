@@ -16,7 +16,6 @@ export class CreatePedidoDto {
     @Type(() => Productos)
     productos: Productos[]
 
-    //TODO: Calcular precio desde el backend
     @IsNumber()
     @IsOptional()
     precio: number;

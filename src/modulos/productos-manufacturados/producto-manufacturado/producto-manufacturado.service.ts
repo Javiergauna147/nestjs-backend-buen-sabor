@@ -32,6 +32,14 @@ export class ProductoManufacturadoService {
         }
     }
 
+    async find(id: string){
+        try{
+            return this.productoManufacturadoModel.findById(id);
+        }catch(error){
+            this.handleExceptions(error);
+        }
+    }
+
     private handleExceptions( error: any ) {
         if ( error.code === 11000 ) {
           throw new BadRequestException(`ProductoManufacturado exists in db ${ JSON.stringify( error.keyValue ) }`);
