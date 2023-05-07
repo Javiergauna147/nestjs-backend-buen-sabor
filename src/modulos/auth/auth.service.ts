@@ -7,36 +7,66 @@ import * as bcrypt from 'bcrypt';
 import { Usuario, UsuarioDocument } from './schemas/usuario.schema';
 import { JwtPayload } from './interfaces/jwt-payload.interface';
 import { LoginUserDto } from './dto/login-user.dto';
+import { Rol, RolDocument } from './schemas/rol.schema';
+import { CreateRolDto } from './dto/create-rol.dto';
 
 @Injectable()
 export class AuthService {
 
-    constructor( private readonly jwtService: JwtService, @InjectModel(Usuario.name) private usuarioModel: Model<UsuarioDocument> ){}
+    constructor( private readonly jwtService: JwtService,
+      @InjectModel(Usuario.name) private usuarioModel: Model<UsuarioDocument>,
+      @InjectModel(Rol.name) private rolModel: Model<RolDocument>
+    ){}
 
 
     async create( createUserDto: CreateUserDto ){
-
         try {
-
-            const {password, ...userData} = createUserDto;
-
-            const user = await this.usuarioModel.create({
-                ...userData,
-                password: bcrypt.hashSync(password, 10)
-            })
-            delete user.password;
-
-            return {
-                ...user,
-                token: this.getJwtToken({id: user.id})
+            const userRole = await this.findRole(createUserDto.rol);
+            if(userRole){
+                const {password, ...userData} = createUserDto;
+        
+                const user = await this.usuarioModel.create({
+                    ...userData,
+                    password: bcrypt.hashSync(password, 10)
+                })
+                delete user.password;
+        
+                return {
+                    ...user,
+                    token: this.getJwtToken({id: user.id})
+                }
+            }else{
+                throw new BadRequestException("rol-no-existe");
             }
-
         } catch(error){
-            this.handleDBErrors(error);
+            if(error.response?.message == 'rol-no-existe' ){
+                throw new BadRequestException("rol-no-existe");
+            }else{
+                this.handleDBErrors(error);
+            }
         }
-
     }
 
+
+
+    async createRol( createRolDto: CreateRolDto ){
+      try {
+          const rol = await this.rolModel.create({
+            rol: createRolDto.rol
+          })
+          return rol
+      } catch(error) {
+          this.handleDBErrors(error);
+      }
+    }
+
+    async findAll() {
+      try{
+          return this.rolModel.find();
+      }catch(error){
+          this.handleDBErrors(error);
+      }
+  }
 
     async login( loginUserDto: LoginUserDto ) {
 
@@ -56,7 +86,15 @@ export class AuthService {
           ...user,
           token: this.getJwtToken({ id: user.id })
         };
-      }
+    }
+
+    private async findRole(rol: string){
+        try{
+            return this.rolModel.findOne({rol: rol});
+        }catch(error){
+            this.handleDBErrors(error);
+        }
+    }
 
 
     private getJwtToken( payload: JwtPayload ) {

@@ -8,12 +8,16 @@ import { JwtStrategy } from './strategies/jwt.strategy';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Usuario, UsuarioSchema } from './schemas/usuario.schema';
 import { LocalStrategy } from './strategies/local.strategy';
+import { Rol, RolSchema } from './schemas/rol.schema';
 
 @Module({
   providers: [AuthService, JwtStrategy, LocalStrategy],
   controllers: [AuthController],
   imports: [
-    MongooseModule.forFeature([{name: Usuario.name, schema: UsuarioSchema}]),
+    MongooseModule.forFeature([
+      {name: Usuario.name, schema: UsuarioSchema},
+      {name: Rol.name, schema: RolSchema}
+    ]),
     ConfigModule,
     PassportModule.register({defaultStrategy: 'jwt'}),
     JwtModule.registerAsync({
