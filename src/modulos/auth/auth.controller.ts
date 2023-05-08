@@ -3,6 +3,7 @@ import { AuthService } from './auth.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { LoginUserDto } from './dto/login-user.dto';
 import { CreateRolDto } from './dto/create-rol.dto';
+import { Auth } from './decorators/auth.decorator';
 
 @Controller('auth')
 export class AuthController {
@@ -28,6 +29,7 @@ export class AuthController {
     }
 
     @Get('rol')
+    @Auth(...['ADMINISTRADOR'])
     getAllRoles(){
         return this.authService.findAll();
     }
