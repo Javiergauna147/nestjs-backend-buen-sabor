@@ -29,6 +29,14 @@ export class PedidoService {
         }
     }
 
+    async findAllAdministrator() {
+        try{
+            return this.pedidoModel.find().populate({path: 'estado', select: 'nombre'});
+        }catch(error){
+            this.handleExceptions(error);
+        }
+    }
+
     private handleExceptions( error: any ) {
         if ( error.code === 11000 ) {
           throw new BadRequestException(`Pedido exists in db ${ JSON.stringify( error.keyValue ) }`);

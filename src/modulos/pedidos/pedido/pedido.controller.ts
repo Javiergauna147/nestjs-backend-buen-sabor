@@ -32,4 +32,11 @@ export class PedidoController {
     findAll( @GetUser() user: UsuarioDocument ){
         return this.pedidoService.findAll(user.id);
     }
+
+
+    @Get('find-all-administrator')
+    @Auth('ADMINISTRADOR')
+    findAllAdministrator(){
+        return this.pedidoService.findAllAdministrator();
+    }
 }
