@@ -1,30 +1,33 @@
-import { Type } from "class-transformer";
-import { IsMongoId, IsNumber, IsOptional, ValidateNested } from "class-validator";
+import { Type } from 'class-transformer';
+import {
+  IsMongoId,
+  IsNumber,
+  IsOptional,
+  ValidateNested,
+} from 'class-validator';
 
 export class CreatePedidoDto {
+  @IsMongoId()
+  @IsOptional()
+  cliente: string;
 
-    @IsMongoId()
-    @IsOptional()
-    cliente: string;
+  @IsMongoId()
+  estado: string;
 
-    @IsMongoId()
-    estado: string;
-    
-    @ValidateNested({
-        each: true
-    })
-    @Type(() => Productos)
-    productos: Productos[]
+  @ValidateNested({
+    each: true,
+  })
+  @Type(() => Productos)
+  productos: Productos[];
 
-    @IsNumber()
-    @IsOptional()
-    precio: number;
-
+  @IsNumber()
+  @IsOptional()
+  precio: number;
 }
 
 class Productos {
-    @IsNumber()
-    cantidad: number;
-    @IsMongoId()
-    producto: string;
+  @IsNumber()
+  cantidad: number;
+  @IsMongoId()
+  producto: string;
 }

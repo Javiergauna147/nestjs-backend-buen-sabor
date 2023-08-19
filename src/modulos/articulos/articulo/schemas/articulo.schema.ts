@@ -6,14 +6,13 @@ export type ArticuloDocument = HydratedDocument<Articulo>;
 
 @Schema()
 export class Articulo {
-
   @Prop({
-    unique: true
+    unique: true,
   })
   nombre: string;
 
   @Prop({
-    unique: true
+    unique: true,
   })
   denominacion: string;
 
@@ -35,7 +34,7 @@ export class Articulo {
   @Prop()
   requiereRefrigeracion: boolean;
 
-  @Prop({type: mongoose.Schema.Types.ObjectId, ref: 'RubroArticulo'})
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'RubroArticulo' })
   rubro: RubroArticulo;
 }
 

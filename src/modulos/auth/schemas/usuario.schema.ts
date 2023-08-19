@@ -6,7 +6,7 @@ export type UsuarioDocument = HydratedDocument<Usuario>;
 @Schema()
 export class Usuario {
   @Prop({
-    unique: true
+    unique: true,
   })
   email: string;
 

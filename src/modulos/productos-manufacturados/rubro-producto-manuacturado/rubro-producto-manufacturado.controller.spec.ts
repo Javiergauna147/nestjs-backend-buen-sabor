@@ -9,7 +9,9 @@ describe('RubroProductoManuacturadoController', () => {
       controllers: [RubroProductoManufacturadoController],
     }).compile();
 
-    controller = module.get<RubroProductoManufacturadoController>(RubroProductoManufacturadoController);
+    controller = module.get<RubroProductoManufacturadoController>(
+      RubroProductoManufacturadoController,
+    );
   });
 
   it('should be defined', () => {

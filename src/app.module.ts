@@ -17,7 +17,7 @@ import { PedidosModule } from './modulos/pedidos/pedidos.module';
     AuthModule,
     ArticulosModule,
     ProductosManufacturadosModule,
-    PedidosModule
+    PedidosModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -8,35 +8,44 @@ import { ProductoManufacturadoService } from '../../productos-manufacturados/pro
 
 @Controller('pedido')
 export class PedidoController {
-    constructor( private readonly pedidoService: PedidoService, private readonly productoManufacturadoService: ProductoManufacturadoService ) {}
+  constructor(
+    private readonly pedidoService: PedidoService,
+    private readonly productoManufacturadoService: ProductoManufacturadoService,
+  ) {}
 
-    @Post('create')
-    @Auth()
-    async create( @Body() createPedidoDto: CreatePedidoDto, @GetUser() user: UsuarioDocument ){
-        createPedidoDto.cliente = user.id;
-        createPedidoDto.precio = 0;
+  @Post('create')
+  @Auth()
+  async create(
+    @Body() createPedidoDto: CreatePedidoDto,
+    @GetUser() user: UsuarioDocument,
+  ) {
+    createPedidoDto.cliente = user.id;
+    createPedidoDto.precio = 0;
 
-        const productosPromises = createPedidoDto.productos.map(async (producto) => {
-            const productoEncontrado = await this.productoManufacturadoService.find(producto.producto);
-            createPedidoDto.precio += productoEncontrado.precio * producto.cantidad;
-            console.log(productoEncontrado)
-          });
+    const productosPromises = createPedidoDto.productos.map(
+      async (producto) => {
+        const productoEncontrado = await this.productoManufacturadoService.find(
+          producto.producto,
+        );
+        createPedidoDto.precio += productoEncontrado.precio * producto.cantidad;
+        console.log(productoEncontrado);
+      },
+    );
 
-        await Promise.all(productosPromises);
-        
-        return this.pedidoService.create(createPedidoDto);
-    }
+    await Promise.all(productosPromises);
 
-    @Get('find-all')
-    @Auth()
-    findAll( @GetUser() user: UsuarioDocument ){
-        return this.pedidoService.findAll(user.id);
-    }
+    return this.pedidoService.create(createPedidoDto);
+  }
 
+  @Get('find-all')
+  @Auth()
+  findAll(@GetUser() user: UsuarioDocument) {
+    return this.pedidoService.findAll(user.id);
+  }
 
-    @Get('find-all-administrator')
-    @Auth('ADMINISTRADOR')
-    findAllAdministrator(){
-        return this.pedidoService.findAllAdministrator();
-    }
+  @Get('find-all-administrator')
+  @Auth('ADMINISTRADOR')
+  findAllAdministrator() {
+    return this.pedidoService.findAllAdministrator();
+  }
 }

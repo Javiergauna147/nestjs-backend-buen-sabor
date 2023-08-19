@@ -5,7 +5,10 @@ import { ArticuloService } from './articulo/articulo.service';
 import { RubroArticuloService } from './rubro-articulo/rubro-articulo.service';
 import { AuthModule } from '../auth/auth.module';
 import { MongooseModule } from '@nestjs/mongoose';
-import { RubroArticulo, RubroArticuloSchema } from './rubro-articulo/schemas/rubro-articulo.schema';
+import {
+  RubroArticulo,
+  RubroArticuloSchema,
+} from './rubro-articulo/schemas/rubro-articulo.schema';
 import { Articulo, ArticuloSchema } from './articulo/schemas/articulo.schema';
 
 @Module({
@@ -13,9 +16,10 @@ import { Articulo, ArticuloSchema } from './articulo/schemas/articulo.schema';
   providers: [ArticuloService, RubroArticuloService],
   imports: [
     MongooseModule.forFeature([
-      {name: RubroArticulo.name, schema: RubroArticuloSchema},
-      {name: Articulo.name, schema: ArticuloSchema}]),
-    AuthModule
-  ]
+      { name: RubroArticulo.name, schema: RubroArticuloSchema },
+      { name: Articulo.name, schema: ArticuloSchema },
+    ]),
+    AuthModule,
+  ],
 })
 export class ArticulosModule {}

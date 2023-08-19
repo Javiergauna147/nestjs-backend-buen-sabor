@@ -5,11 +5,11 @@ import { CreateArticuloDto } from './dto/create-articulo.dto';
 
 @Controller('articulo')
 export class ArticuloController {
-    constructor( private readonly articuloService: ArticuloService ){}
+  constructor(private readonly articuloService: ArticuloService) {}
 
-    @Post('create')
-    @Auth()
-    create(@Body() createArticuloDto: CreateArticuloDto ) {
-        return this.articuloService.create(createArticuloDto);
-    }
+  @Post('create')
+  @Auth()
+  create(@Body() createArticuloDto: CreateArticuloDto) {
+    return this.articuloService.create(createArticuloDto);
+  }
 }

@@ -15,24 +15,30 @@ import { Rol, RolSchema } from './schemas/rol.schema';
   controllers: [AuthController],
   imports: [
     MongooseModule.forFeature([
-      {name: Usuario.name, schema: UsuarioSchema},
-      {name: Rol.name, schema: RolSchema}
+      { name: Usuario.name, schema: UsuarioSchema },
+      { name: Rol.name, schema: RolSchema },
     ]),
     ConfigModule,
-    PassportModule.register({defaultStrategy: 'jwt'}),
+    PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.registerAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => {
-          return {
-            secret: configService.get('JWT_SECRET'),
-            signOptions: {
-              expiresIn: '10h'
-            }
-          }
-      }
-    })
+        return {
+          secret: configService.get('JWT_SECRET'),
+          signOptions: {
+            expiresIn: '10h',
+          },
+        };
+      },
+    }),
   ],
-  exports: [PassportModule, JwtModule, JwtStrategy, LocalStrategy, MongooseModule]
+  exports: [
+    PassportModule,
+    JwtModule,
+    JwtStrategy,
+    LocalStrategy,
+    MongooseModule,
+  ],
 })
 export class AuthModule {}

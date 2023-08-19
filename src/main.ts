@@ -9,11 +9,11 @@ async function bootstrap() {
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
-      transform: true
-    })
+      transform: true,
+    }),
   );
 
   await app.listen(process.env.PORT);
-  Logger.log(`App running on port ${ process.env.PORT }`);
+  Logger.log(`App running on port ${process.env.PORT}`);
 }
 bootstrap();

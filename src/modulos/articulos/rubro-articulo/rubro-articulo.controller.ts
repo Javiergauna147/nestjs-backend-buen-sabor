@@ -5,18 +5,17 @@ import { RubroArticuloService } from './rubro-articulo.service';
 
 @Controller('rubro-articulo')
 export class RubroArticuloController {
-    constructor( private readonly rubroArticuloService: RubroArticuloService ) {}
+  constructor(private readonly rubroArticuloService: RubroArticuloService) {}
 
-    @Post('create')
-    @Auth()
-    create( @Body() createRubroArticuloDto: CreateRubroArticuloDto ){
-        return this.rubroArticuloService.create(createRubroArticuloDto);
-    }
+  @Post('create')
+  @Auth()
+  create(@Body() createRubroArticuloDto: CreateRubroArticuloDto) {
+    return this.rubroArticuloService.create(createRubroArticuloDto);
+  }
 
-    @Get('find-all')
-    @Auth()
-    findAll() {
-        return this.rubroArticuloService.findAll();
-    }
-
+  @Get('find-all')
+  @Auth()
+  findAll() {
+    return this.rubroArticuloService.findAll();
+  }
 }

@@ -5,17 +5,24 @@ import { RubroProductoManufacturadoService } from './rubro-producto-manufacturad
 
 @Controller('rubro-producto-manufacturado')
 export class RubroProductoManufacturadoController {
-    constructor( private readonly rubroProductoManufacturadoService: RubroProductoManufacturadoService ) {}
+  constructor(
+    private readonly rubroProductoManufacturadoService: RubroProductoManufacturadoService,
+  ) {}
 
-    @Post('create')
-    @Auth()
-    create( @Body() createRubroProductoManufacturadoDto: CreateRubroProductoManufacturadoDto ){
-        return this.rubroProductoManufacturadoService.create(createRubroProductoManufacturadoDto);
-    }
+  @Post('create')
+  @Auth()
+  create(
+    @Body()
+    createRubroProductoManufacturadoDto: CreateRubroProductoManufacturadoDto,
+  ) {
+    return this.rubroProductoManufacturadoService.create(
+      createRubroProductoManufacturadoDto,
+    );
+  }
 
-    @Get('find-all')
-    @Auth()
-    findAll() {
-        return this.rubroProductoManufacturadoService.findAll();
-    }
+  @Get('find-all')
+  @Auth()
+  findAll() {
+    return this.rubroProductoManufacturadoService.findAll();
+  }
 }

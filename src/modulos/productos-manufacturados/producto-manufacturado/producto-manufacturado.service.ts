@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable, InternalServerErrorException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { ProductoManufacturado } from './schemas/producto-manufacturado.schema';
@@ -6,45 +10,50 @@ import { CreateProductoManufacturadoDto } from './dto/create-producto-manufactur
 
 @Injectable()
 export class ProductoManufacturadoService {
-    constructor(
-        @InjectModel(ProductoManufacturado.name)
-        private readonly productoManufacturadoModel: Model<ProductoManufacturado>
-    ) {}
+  constructor(
+    @InjectModel(ProductoManufacturado.name)
+    private readonly productoManufacturadoModel: Model<ProductoManufacturado>,
+  ) {}
 
-    async create( createProductoManufacturadoDto: CreateProductoManufacturadoDto ){
+  async create(createProductoManufacturadoDto: CreateProductoManufacturadoDto) {
+    createProductoManufacturadoDto.nombre =
+      createProductoManufacturadoDto.nombre.toUpperCase();
 
-        createProductoManufacturadoDto.nombre = createProductoManufacturadoDto.nombre.toUpperCase();
-
-        try{
-            const productoManufacturado = this.productoManufacturadoModel.create(createProductoManufacturadoDto);
-            return productoManufacturado;
-        }catch(error){
-            this.handleExceptions(error);
-        }
-
+    try {
+      const productoManufacturado = this.productoManufacturadoModel.create(
+        createProductoManufacturadoDto,
+      );
+      return productoManufacturado;
+    } catch (error) {
+      this.handleExceptions(error);
     }
+  }
 
-    async findAll(){
-        try{
-            return this.productoManufacturadoModel.find();
-        }catch(error){
-            this.handleExceptions(error);
-        }
+  async findAll() {
+    try {
+      return this.productoManufacturadoModel.find();
+    } catch (error) {
+      this.handleExceptions(error);
     }
+  }
 
-    async find(id: string){
-        try{
-            return this.productoManufacturadoModel.findById(id);
-        }catch(error){
-            this.handleExceptions(error);
-        }
+  async find(id: string) {
+    try {
+      return this.productoManufacturadoModel.findById(id);
+    } catch (error) {
+      this.handleExceptions(error);
     }
+  }
 
-    private handleExceptions( error: any ) {
-        if ( error.code === 11000 ) {
-          throw new BadRequestException(`ProductoManufacturado exists in db ${ JSON.stringify( error.keyValue ) }`);
-        }
-        console.log(error);
-        throw new InternalServerErrorException(`Can't create ProductoManufacturado - Check server logs`);
+  private handleExceptions(error: any) {
+    if (error.code === 11000) {
+      throw new BadRequestException(
+        `ProductoManufacturado exists in db ${JSON.stringify(error.keyValue)}`,
+      );
     }
+    console.log(error);
+    throw new InternalServerErrorException(
+      `Can't create ProductoManufacturado - Check server logs`,
+    );
+  }
 }

@@ -6,7 +6,7 @@ export type RubroArticuloDocument = HydratedDocument<RubroArticulo>;
 @Schema()
 export class RubroArticulo {
   @Prop({
-    unique: true
+    unique: true,
   })
   nombre: string;
 }
