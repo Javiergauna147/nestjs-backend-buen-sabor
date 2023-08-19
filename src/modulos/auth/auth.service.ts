@@ -25,23 +25,24 @@ export class AuthService {
 
   async create(createUserDto: CreateUserDto) {
     try {
-      const userRole = await this.findRole(createUserDto.rol);
-      if (userRole) {
-        const { password, ...userData } = createUserDto;
-
-        const user = await this.usuarioModel.create({
-          ...userData,
-          password: bcrypt.hashSync(password, 10),
-        });
-        delete user.password;
-
-        return {
-          ...user,
-          token: this.getJwtToken({ id: user.id }),
-        };
-      } else {
-        throw new BadRequestException('rol-no-existe');
+      if (createUserDto.rol) {
+        const userRole = await this.findRole(createUserDto.rol);
+        if (!userRole) {
+          throw new BadRequestException('rol-no-existe');
+        }
       }
+      const { password, ...userData } = createUserDto;
+
+      const user = await this.usuarioModel.create({
+        ...userData,
+        password: bcrypt.hashSync(password, 10),
+      });
+      delete user.password;
+
+      return {
+        ...user,
+        token: this.getJwtToken({ id: user.id }),
+      };
     } catch (error) {
       if (error.response?.message == 'rol-no-existe') {
         throw new BadRequestException('rol-no-existe');
