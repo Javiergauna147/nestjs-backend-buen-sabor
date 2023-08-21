@@ -27,6 +27,10 @@ export class ArticuloService {
     }
   }
 
+  async findAll() {
+    return this.articuloModel.find();
+  }
+
   private handleExceptions(error: any) {
     if (error.code === 11000) {
       throw new BadRequestException(
