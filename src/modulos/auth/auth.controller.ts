@@ -48,7 +48,7 @@ export class AuthController {
     };
 
     const menuInsumos: object = {
-      titulo: 'Stock Insumos',
+      titulo: 'Insumos',
       descripcion:
         'Gestión de todo lo referente a insumos, permitiendo crear nuevos, ver stock, modificar stock, etc.',
       redirecto: 'menu-insumos',
