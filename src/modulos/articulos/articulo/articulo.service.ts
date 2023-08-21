@@ -28,7 +28,9 @@ export class ArticuloService {
   }
 
   async findAll() {
-    return this.articuloModel.find();
+    return this.articuloModel
+      .find()
+      .populate({ path: 'rubro', select: 'nombre' });
   }
 
   private handleExceptions(error: any) {
