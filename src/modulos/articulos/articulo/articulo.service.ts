@@ -33,6 +33,11 @@ export class ArticuloService {
       .populate({ path: 'rubro', select: 'nombre' });
   }
 
+  async findOne(id: string) {
+    const articulo = await this.articuloModel.findById(id);
+    return articulo;
+  }
+
   private handleExceptions(error: any) {
     if (error.code === 11000) {
       throw new BadRequestException(

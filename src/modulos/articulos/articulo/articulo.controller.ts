@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Get } from '@nestjs/common';
+import { Body, Controller, Post, Get, Param } from '@nestjs/common';
 import { Auth } from 'src/modulos/auth/decorators/auth.decorator';
 import { ArticuloService } from './articulo.service';
 import { CreateArticuloDto } from './dto/create-articulo.dto';
@@ -17,5 +17,10 @@ export class ArticuloController {
   @Auth(...['ADMINISTRADOR'])
   findAll() {
     return this.articuloService.findAll();
+  }
+  @Get('find/:id')
+  @Auth(...['ADMINISTRADOR'])
+  findOne(@Param('id') id: string) {
+    return this.articuloService.findOne(id);
   }
 }
