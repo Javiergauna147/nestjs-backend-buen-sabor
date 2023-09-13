@@ -7,6 +7,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CreateArticuloDto } from './dto/create-articulo.dto';
 import { Articulo, ArticuloDocument } from './schemas/articulo.schema';
+import { UpdateArticuloDto } from './dto/update-articulo.dto';
 
 @Injectable()
 export class ArticuloService {
@@ -37,6 +38,14 @@ export class ArticuloService {
     const articulo = await this.articuloModel
       .findOne({ id: id })
       .populate({ path: 'rubro', select: 'nombre' });
+    return articulo;
+  }
+
+  async updateOne(updateArticuloDto: UpdateArticuloDto) {
+    const articulo = await this.articuloModel.updateOne(
+      { _id: updateArticuloDto.id },
+      { ...updateArticuloDto },
+    );
     return articulo;
   }
 
