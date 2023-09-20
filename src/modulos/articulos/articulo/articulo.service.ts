@@ -43,7 +43,7 @@ export class ArticuloService {
 
   async updateOne(updateArticuloDto: UpdateArticuloDto) {
     const articulo = await this.articuloModel.updateOne(
-      { _id: updateArticuloDto.id },
+      { _id: updateArticuloDto._id },
       { ...updateArticuloDto },
     );
     return articulo;

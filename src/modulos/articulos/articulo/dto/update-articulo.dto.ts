@@ -8,7 +8,7 @@ import {
 
 export class UpdateArticuloDto {
   @IsMongoId()
-  id: string;
+  _id: string;
   @IsOptional()
   @IsString()
   nombre?: string;
