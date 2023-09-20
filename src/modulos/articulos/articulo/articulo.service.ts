@@ -36,7 +36,7 @@ export class ArticuloService {
 
   async findOne(id: string) {
     const articulo = await this.articuloModel
-      .findOne({ id: id })
+      .findOne({ _id: id })
       .populate({ path: 'rubro', select: 'nombre' });
     return articulo;
   }
