@@ -8,7 +8,7 @@ export class RubroArticuloController {
   constructor(private readonly rubroArticuloService: RubroArticuloService) {}
 
   @Post('create')
-  @Auth()
+  @Auth(...['ADMINISTRADOR'])
   create(@Body() createRubroArticuloDto: CreateRubroArticuloDto) {
     return this.rubroArticuloService.create(createRubroArticuloDto);
   }
