@@ -9,6 +9,7 @@ import { AuthModule } from './modulos/auth/auth.module';
 import { ArticulosModule } from './modulos/articulos/articulos.module';
 import { ProductosManufacturadosModule } from './modulos/productos-manufacturados/productos-manufacturados.module';
 import { PedidosModule } from './modulos/pedidos/pedidos.module';
+import { UsuariosModule } from './modulos/usuarios/usuarios.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { PedidosModule } from './modulos/pedidos/pedidos.module';
     ArticulosModule,
     ProductosManufacturadosModule,
     PedidosModule,
+    UsuariosModule,
   ],
   controllers: [AppController],
   providers: [AppService],
