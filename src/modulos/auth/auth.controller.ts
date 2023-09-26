@@ -14,6 +14,7 @@ export class AuthController {
 
   @Post('register')
   createUser(@Body() createUserDto: CreateUserDto) {
+    createUserDto.rol = 'CLIENTE';
     return this.authService.create(createUserDto);
   }
 
@@ -28,7 +29,7 @@ export class AuthController {
     return this.authService.createRol(createRolDto);
   }
 
-  @Get('rol')
+  @Get('roles')
   @Auth(...['ADMINISTRADOR'])
   getAllRoles() {
     return this.authService.findAllRoles();

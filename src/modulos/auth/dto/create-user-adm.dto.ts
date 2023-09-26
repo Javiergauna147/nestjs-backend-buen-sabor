@@ -1,10 +1,4 @@
-import {
-  IsString,
-  IsEmail,
-  MinLength,
-  MaxLength,
-  IsOptional,
-} from 'class-validator';
+import { IsString, IsEmail, MinLength, MaxLength } from 'class-validator';
 
 export class CreateUserAdmDto {
   @IsString()
@@ -17,6 +11,5 @@ export class CreateUserAdmDto {
   password: string;
 
   @IsString()
-  @IsOptional()
   rol: string;
 }
