@@ -14,6 +14,7 @@ import { JwtPayload } from './interfaces/jwt-payload.interface';
 import { LoginUserDto } from './dto/login-user.dto';
 import { Rol, RolDocument } from './schemas/rol.schema';
 import { CreateRolDto } from './dto/create-rol.dto';
+import { CreateUserAdmDto } from './dto/create-user-adm.dto';
 
 @Injectable()
 export class AuthService {
@@ -23,7 +24,7 @@ export class AuthService {
     @InjectModel(Rol.name) private rolModel: Model<RolDocument>,
   ) {}
 
-  async create(createUserDto: CreateUserDto) {
+  async create(createUserDto: CreateUserAdmDto | CreateUserDto | any) {
     try {
       if (createUserDto.rol) {
         const userRole = await this.findRole(createUserDto.rol);
@@ -63,9 +64,16 @@ export class AuthService {
     }
   }
 
-  async findAll() {
+  async findAllRoles() {
     try {
       return this.rolModel.find();
+    } catch (error) {
+      this.handleDBErrors(error);
+    }
+  }
+  async findAllUsers() {
+    try {
+      return this.usuarioModel.find({}, '_id email rol');
     } catch (error) {
       this.handleDBErrors(error);
     }

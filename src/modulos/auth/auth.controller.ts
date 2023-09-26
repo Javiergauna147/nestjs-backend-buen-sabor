@@ -6,6 +6,7 @@ import { CreateRolDto } from './dto/create-rol.dto';
 import { Auth } from './decorators/auth.decorator';
 import { GetUser } from './decorators/get-user.decorator';
 import { UsuarioDocument } from './schemas/usuario.schema';
+import { CreateUserAdmDto } from './dto/create-user-adm.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -13,10 +14,6 @@ export class AuthController {
 
   @Post('register')
   createUser(@Body() createUserDto: CreateUserDto) {
-    if (createUserDto.rol) {
-      createUserDto.rol = createUserDto.rol.toUpperCase();
-    }
-
     return this.authService.create(createUserDto);
   }
 
@@ -34,7 +31,22 @@ export class AuthController {
   @Get('rol')
   @Auth(...['ADMINISTRADOR'])
   getAllRoles() {
-    return this.authService.findAll();
+    return this.authService.findAllRoles();
+  }
+
+  @Post('create-user')
+  @Auth(...['ADMINISTRADOR'])
+  createUserAdm(@Body() createUserAdmDto: CreateUserAdmDto) {
+    if (createUserAdmDto.rol) {
+      createUserAdmDto.rol = createUserAdmDto.rol.toUpperCase();
+    }
+    return this.authService.create(createUserAdmDto);
+  }
+
+  @Get('users')
+  @Auth(...['ADMINISTRADOR'])
+  getAllUser() {
+    return this.authService.findAllUsers();
   }
 
   @Get('home-menu')
