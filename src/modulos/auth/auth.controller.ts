@@ -24,6 +24,7 @@ export class AuthController {
   }
 
   @Post('rol')
+  @Auth(...['ADMINISTRADOR'])
   createRol(@Body() createRolDto: CreateRolDto) {
     createRolDto.rol = createRolDto.rol.toUpperCase();
     return this.authService.createRol(createRolDto);
