@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Param } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { LoginUserDto } from './dto/login-user.dto';
@@ -49,6 +49,12 @@ export class AuthController {
   @Auth(...['ADMINISTRADOR'])
   getAllUser() {
     return this.authService.findAllUsers();
+  }
+
+  @Get('user/:id')
+  @Auth(...['ADMINISTRADOR'])
+  getUserById(@Param('id') id: string) {
+    return this.authService.findOneUserById(id);
   }
 
   @Get('home-menu')

@@ -79,6 +79,14 @@ export class AuthService {
     }
   }
 
+  async findOneUserById(id: string) {
+    try {
+      return this.usuarioModel.findById(id, '_id email rol');
+    } catch (error) {
+      this.handleDBErrors(error);
+    }
+  }
+
   async login(loginUserDto: LoginUserDto) {
     const { password, email } = loginUserDto;
 
