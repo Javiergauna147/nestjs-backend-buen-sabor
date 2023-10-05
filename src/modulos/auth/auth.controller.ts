@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Param } from '@nestjs/common';
+import { Body, Controller, Get, Post, Param, Put } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { LoginUserDto } from './dto/login-user.dto';
@@ -7,6 +7,7 @@ import { Auth } from './decorators/auth.decorator';
 import { GetUser } from './decorators/get-user.decorator';
 import { UsuarioDocument } from './schemas/usuario.schema';
 import { CreateUserAdmDto } from './dto/create-user-adm.dto';
+import { UpdateUserAdmDto } from './dto/update-user.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -21,6 +22,15 @@ export class AuthController {
   @Post('login')
   loginUser(@Body() loginUserDto: LoginUserDto) {
     return this.authService.login(loginUserDto);
+  }
+
+  @Put('update-user')
+  @Auth(...['ADMINISTRADOR'])
+  updateUserAdm(@Body() updateUserAdmDto: UpdateUserAdmDto) {
+    if (updateUserAdmDto.rol) {
+      updateUserAdmDto.rol = updateUserAdmDto.rol.toUpperCase();
+    }
+    return this.authService.updateUser(updateUserAdmDto);
   }
 
   @Post('rol')

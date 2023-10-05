@@ -15,6 +15,7 @@ import { LoginUserDto } from './dto/login-user.dto';
 import { Rol, RolDocument } from './schemas/rol.schema';
 import { CreateRolDto } from './dto/create-rol.dto';
 import { CreateUserAdmDto } from './dto/create-user-adm.dto';
+import { UpdateUserAdmDto } from './dto/update-user.dto';
 
 @Injectable()
 export class AuthService {
@@ -50,6 +51,24 @@ export class AuthService {
       } else {
         this.handleDBErrors(error);
       }
+    }
+  }
+
+  async updateUser(updateUserAdmDto: UpdateUserAdmDto) {
+    try {
+      if (updateUserAdmDto.rol) {
+        const userRole = await this.findRole(updateUserAdmDto.rol);
+        if (!userRole) {
+          throw new BadRequestException('rol-no-existe');
+        }
+      }
+      const user = await this.usuarioModel.findByIdAndUpdate(
+        updateUserAdmDto._id,
+        { rol: updateUserAdmDto.rol },
+      );
+      return { status: 'OK' };
+    } catch (error) {
+      this.handleDBErrors(error);
     }
   }
 
