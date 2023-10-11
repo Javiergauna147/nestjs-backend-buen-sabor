@@ -31,7 +31,16 @@ export class ProductoManufacturadoService {
 
   async findAll() {
     try {
-      return this.productoManufacturadoModel.find();
+      return this.productoManufacturadoModel.find().populate([
+        {
+          path: 'articulos',
+          populate: { path: 'articulo', select: 'nombre denominacion' },
+        },
+        {
+          path: 'rubro',
+          select: 'nombre',
+        },
+      ]);
     } catch (error) {
       this.handleExceptions(error);
     }

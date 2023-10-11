@@ -20,7 +20,7 @@ export class ProductoManufacturadoController {
   }
 
   @Get('find-all')
-  @Auth()
+  @Auth(...['ADMINISTRADOR'])
   findAll() {
     return this.productoManufacturadoService.findAll();
   }
