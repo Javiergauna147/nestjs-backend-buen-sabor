@@ -33,10 +33,6 @@ export class ProductoManufacturadoService {
     try {
       return this.productoManufacturadoModel.find().populate([
         {
-          path: 'articulos',
-          populate: { path: 'articulo', select: 'nombre denominacion' },
-        },
-        {
           path: 'rubro',
           select: 'nombre',
         },
@@ -48,7 +44,16 @@ export class ProductoManufacturadoService {
 
   async find(id: string) {
     try {
-      return this.productoManufacturadoModel.findById(id);
+      return this.productoManufacturadoModel.findById(id).populate([
+        {
+          path: 'articulos',
+          populate: { path: 'articulo', select: 'nombre denominacion' },
+        },
+        {
+          path: 'rubro',
+          select: 'nombre',
+        },
+      ]);
     } catch (error) {
       this.handleExceptions(error);
     }
