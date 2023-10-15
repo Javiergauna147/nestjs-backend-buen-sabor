@@ -10,7 +10,7 @@ export class RubroProductoManufacturadoController {
   ) {}
 
   @Post('create')
-  @Auth()
+  @Auth(...['ADMINISTRADOR'])
   create(
     @Body()
     createRubroProductoManufacturadoDto: CreateRubroProductoManufacturadoDto,
