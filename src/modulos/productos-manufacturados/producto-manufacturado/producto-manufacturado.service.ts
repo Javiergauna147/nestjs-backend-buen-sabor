@@ -41,6 +41,26 @@ export class ProductoManufacturadoService {
       this.handleExceptions(error);
     }
   }
+  async findAllWhitFilters(filters) {
+    let fils = { ...filters, rubro: null };
+    delete fils.rubro;
+    try {
+      return this.productoManufacturadoModel
+        .find(fils)
+        .populate([
+          {
+            path: 'rubro',
+            match: filters.rubro
+              ? { nombre: filters.rubro?.toUpperCase() }
+              : {},
+            select: 'nombre',
+          },
+        ])
+        .then((a) => a.filter((a) => a.rubro));
+    } catch (error) {
+      this.handleExceptions(error);
+    }
+  }
 
   async find(id: string) {
     try {
