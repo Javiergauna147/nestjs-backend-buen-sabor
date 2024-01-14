@@ -7,6 +7,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { ProductoManufacturado } from './schemas/producto-manufacturado.schema';
 import { CreateProductoManufacturadoDto } from './dto/create-producto-manufacturado.dto';
+import { UpdateProductoManufacturadoDto } from './dto/update-producto-manufacturado.dto';
 
 @Injectable()
 export class ProductoManufacturadoService {
@@ -83,6 +84,16 @@ export class ProductoManufacturadoService {
           select: 'nombre',
         },
       ]);
+    return producto;
+  }
+
+  async updateOne(
+    updateProductoManufacturadoDto: UpdateProductoManufacturadoDto,
+  ) {
+    const producto = await this.productoManufacturadoModel.updateOne(
+      { _id: updateProductoManufacturadoDto._id },
+      { ...updateProductoManufacturadoDto },
+    );
     return producto;
   }
 
