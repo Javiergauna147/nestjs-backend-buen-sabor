@@ -42,7 +42,7 @@ export class ProductoManufacturadoService {
     }
   }
   async findAllWhitFilters(filters) {
-    let fils = { ...filters, rubro: null };
+    const fils = { ...filters, rubro: null };
     delete fils.rubro;
     try {
       return this.productoManufacturadoModel
@@ -63,20 +63,27 @@ export class ProductoManufacturadoService {
   }
 
   async find(id: string) {
-    try {
-      return this.productoManufacturadoModel.findById(id).populate([
+    const producto = await this.productoManufacturadoModel
+      .findOne({ _id: id })
+      .populate([
         {
           path: 'articulos',
-          populate: { path: 'articulo', select: 'nombre denominacion' },
+          populate: {
+            path: 'articulo',
+            select:
+              'nombre denominacion descripcion marca stock stockMinimo stockMaximo requiereRefrigeracion',
+            populate: {
+              path: 'rubro',
+              select: 'nombre',
+            },
+          },
         },
         {
           path: 'rubro',
           select: 'nombre',
         },
       ]);
-    } catch (error) {
-      this.handleExceptions(error);
-    }
+    return producto;
   }
 
   private handleExceptions(error: any) {

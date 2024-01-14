@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { Auth } from 'src/modulos/auth/decorators/auth.decorator';
 import { ProductoManufacturadoService } from './producto-manufacturado.service';
 import { CreateProductoManufacturadoDto } from './dto/create-producto-manufacturado.dto';
@@ -25,9 +25,9 @@ export class ProductoManufacturadoController {
     return this.productoManufacturadoService.findAll();
   }
 
-  @Get('find')
+  @Get('find/:id')
   @Auth()
-  find(id: string) {
+  find(@Param('id') id: string) {
     return this.productoManufacturadoService.find(id);
   }
 
