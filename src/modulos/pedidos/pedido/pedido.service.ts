@@ -28,7 +28,7 @@ export class PedidoService {
     try {
       return this.pedidoModel
         .find({ cliente: userId })
-        .populate({ path: 'estado', select: 'nombre' });
+        .populate([{ path: 'estado', select: 'nombre' }]);
     } catch (error) {
       this.handleExceptions(error);
     }
@@ -36,9 +36,17 @@ export class PedidoService {
 
   async findAllAdministrator() {
     try {
-      return this.pedidoModel
-        .find()
-        .populate({ path: 'estado', select: 'nombre' });
+      return this.pedidoModel.find().populate([
+        { path: 'cliente', select: 'email' },
+        { path: 'estado', select: 'nombre' },
+        {
+          path: 'productos',
+          populate: {
+            path: 'producto',
+            select: 'nombre',
+          },
+        },
+      ]);
     } catch (error) {
       this.handleExceptions(error);
     }
