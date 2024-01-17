@@ -34,6 +34,10 @@ export class PedidoService {
     }
   }
 
+  async deletebyId(pedidoId: string) {
+    return await this.pedidoModel.deleteOne({ _id: pedidoId });
+  }
+
   async findAllAdministrator() {
     try {
       return this.pedidoModel.find().populate([

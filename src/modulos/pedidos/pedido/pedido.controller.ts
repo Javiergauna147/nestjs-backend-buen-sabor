@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { PedidoService } from './pedido.service';
 import { GetUser } from 'src/modulos/auth/decorators/get-user.decorator';
 import { Auth } from 'src/modulos/auth/decorators/auth.decorator';
@@ -47,5 +47,11 @@ export class PedidoController {
   @Auth('ADMINISTRADOR')
   findAllAdministrator() {
     return this.pedidoService.findAllAdministrator();
+  }
+
+  @Delete('delete/:id')
+  @Auth('ADMINISTRADOR')
+  deleteOneBID(@Param('id') id: string) {
+    return this.pedidoService.deletebyId(id);
   }
 }
