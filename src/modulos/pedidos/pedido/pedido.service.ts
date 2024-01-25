@@ -7,6 +7,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Pedido } from './schemas/pedido.schema';
 import { Model } from 'mongoose';
 import { CreatePedidoDto } from './dto/create-pedido.dto';
+import { UpdatePedidoDto } from './dto/update-pedido.dto';
 
 @Injectable()
 export class PedidoService {
@@ -54,6 +55,14 @@ export class PedidoService {
     } catch (error) {
       this.handleExceptions(error);
     }
+  }
+
+  async updateOne(updatePedidoDto: UpdatePedidoDto) {
+    const pedido = await this.pedidoModel.updateOne(
+      { _id: updatePedidoDto._id },
+      { ...updatePedidoDto },
+    );
+    return pedido;
   }
 
   private handleExceptions(error: any) {

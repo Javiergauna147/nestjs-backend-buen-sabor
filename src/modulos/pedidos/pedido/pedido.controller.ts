@@ -1,10 +1,19 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { PedidoService } from './pedido.service';
 import { GetUser } from 'src/modulos/auth/decorators/get-user.decorator';
 import { Auth } from 'src/modulos/auth/decorators/auth.decorator';
 import { CreatePedidoDto } from './dto/create-pedido.dto';
 import { UsuarioDocument } from 'src/modulos/auth/schemas/usuario.schema';
 import { ProductoManufacturadoService } from '../../productos-manufacturados/producto-manufacturado/producto-manufacturado.service';
+import { UpdatePedidoDto } from './dto/update-pedido.dto';
 
 @Controller('pedido')
 export class PedidoController {
@@ -41,6 +50,12 @@ export class PedidoController {
   @Auth()
   findAll(@GetUser() user: UsuarioDocument) {
     return this.pedidoService.findAll(user.id);
+  }
+
+  @Put('update')
+  @Auth(...['ADMINISTRADOR'])
+  update(@Body() updatePedidoDto: UpdatePedidoDto) {
+    return this.pedidoService.updateOne(updatePedidoDto);
   }
 
   @Get('find-all-administrator')
