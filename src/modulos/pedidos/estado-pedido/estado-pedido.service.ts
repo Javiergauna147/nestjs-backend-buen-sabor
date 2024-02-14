@@ -37,6 +37,22 @@ export class EstadoPedidoService {
     }
   }
 
+  async findById(id: string) {
+    try {
+      return await this.estadoPedidoModel.findById(id);
+    } catch (error) {
+      this.handleExceptions(error);
+    }
+  }
+
+  async findByName(name: string) {
+    try {
+      return await this.estadoPedidoModel.findOne({ nombre: name.toUpperCase() });
+    } catch (error) {
+      this.handleExceptions(error);
+    }
+  }
+
   private handleExceptions(error: any) {
     if (error.code === 11000) {
       throw new BadRequestException(

@@ -12,6 +12,7 @@ export class CreatePedidoDto {
   cliente: string;
 
   @IsMongoId()
+  @IsOptional()
   estado: string;
 
   @ValidateNested({
@@ -23,6 +24,12 @@ export class CreatePedidoDto {
   @IsNumber()
   @IsOptional()
   precio: number;
+
+  @IsOptional()
+  adicionales:{
+    envio:{estado:Boolean, value:{direccion:string}},
+    cupon:{estado:Boolean, value:{codigo:string}}
+  }
 }
 
 class Productos {

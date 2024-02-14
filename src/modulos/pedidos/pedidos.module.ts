@@ -11,10 +11,11 @@ import { PedidoController } from './pedido/pedido.controller';
 import { PedidoService } from './pedido/pedido.service';
 import { Pedido, PedidoSchema } from './pedido/schemas/pedido.schema';
 import { ProductosManufacturadosModule } from '../productos-manufacturados/productos-manufacturados.module';
+import { PasarelaMercadoPagoService } from './pasarela.mercadopago';
 
 @Module({
   controllers: [EstadoPedidoController, PedidoController],
-  providers: [EstadoPedidoService, PedidoService],
+  providers: [EstadoPedidoService, PedidoService, PasarelaMercadoPagoService],
   imports: [
     MongooseModule.forFeature([
       { name: EstadoPedido.name, schema: EstadoPedidoSchema },
