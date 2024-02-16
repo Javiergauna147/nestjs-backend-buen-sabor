@@ -85,8 +85,24 @@ export class PedidoController {
 
   @Get('find-all')
   @Auth()
-  findAll(@GetUser() user: UsuarioDocument) {
-    return this.pedidoService.findAll(user.id);
+  async findAll(@GetUser() user: UsuarioDocument) {
+    return await Promise.all((await this.pedidoService.findAll(user.id)).map(async(pedido) => (
+      {
+        id: pedido.id,
+        estado: (await this.estadoPedido.findById(pedido.estado)).nombre,
+        productos: await Promise.all(pedido.productos.map(async (producto) => {
+          let {nombre, id, precio} = await this.productoManufacturadoService.find(producto.producto);
+          return {
+            cantidad: producto.cantidad,
+            producto: nombre,
+            precio: precio,
+            id: id
+          };
+        })),
+        precio: pedido.precio,
+        adicionales: pedido.adicionales
+      }
+    )));
   }
 
   @Put('update')
