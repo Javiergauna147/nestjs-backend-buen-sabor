@@ -11,6 +11,7 @@ import { UpdatePedidoDto } from './dto/update-pedido.dto';
 
 @Injectable()
 export class PedidoService {
+  
   constructor(
     @InjectModel(Pedido.name)
     private readonly pedidoModel: Model<Pedido>,
@@ -75,5 +76,9 @@ export class PedidoService {
     throw new InternalServerErrorException(
       `Can't create Pedido - Check server logs`,
     );
+  }
+
+  async findById(id: string) {
+    return await this.pedidoModel.findById(id);
   }
 }

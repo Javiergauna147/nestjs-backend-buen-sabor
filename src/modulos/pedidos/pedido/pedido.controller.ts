@@ -16,21 +16,27 @@ import { ProductoManufacturadoService } from '../../productos-manufacturados/pro
 import { UpdatePedidoDto } from './dto/update-pedido.dto';
 import { EstadoPedidoService } from '../estado-pedido/estado-pedido.service';
 import { PasarelaMercadoPagoService } from '../pasarela.mercadopago';
+import { WebSocketServer } from '@nestjs/websockets';
+import { Server } from 'socket.io';
+import { EventsGateway } from 'src/modulos/events/events.wetways';
 
 @Controller('pedido')
 export class PedidoController {
+  @WebSocketServer()
+    server: Server;
   constructor(
     private readonly pedidoService: PedidoService,
     private readonly estadoPedido: EstadoPedidoService,
     private readonly productoManufacturadoService: ProductoManufacturadoService,
     private readonly pasarelaMercadoPago :PasarelaMercadoPagoService
   ) {}
+  
 
   @Post('create')
   @Auth()
   async create(
     @Body() createPedidoDto: CreatePedidoDto,
-    @GetUser() user: UsuarioDocument,
+    @GetUser() user: UsuarioDocument
   ) {
     console.log("createPedido",user);
     console.log(createPedidoDto);
@@ -107,8 +113,10 @@ export class PedidoController {
 
   @Put('update')
   @Auth(...['ADMINISTRADOR'])
-  update(@Body() updatePedidoDto: UpdatePedidoDto) {
-    return this.pedidoService.updateOne(updatePedidoDto);
+  async update(@Body() updatePedidoDto: UpdatePedidoDto) {
+    let result = await this.pedidoService.updateOne(updatePedidoDto);
+    let pedido = await this.pedidoService.findById(updatePedidoDto._id);
+    return result
   }
 
   @Get('find-all-administrator')

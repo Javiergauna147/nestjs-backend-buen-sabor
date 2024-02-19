@@ -12,10 +12,13 @@ import { PedidoService } from './pedido/pedido.service';
 import { Pedido, PedidoSchema } from './pedido/schemas/pedido.schema';
 import { ProductosManufacturadosModule } from '../productos-manufacturados/productos-manufacturados.module';
 import { PasarelaMercadoPagoService } from './pasarela.mercadopago';
+import { EventsModuleModule } from '../events/eventsmodule.module';
+import { EventsGateway } from '../events/events.wetways';
 
 @Module({
   controllers: [EstadoPedidoController, PedidoController],
-  providers: [EstadoPedidoService, PedidoService, PasarelaMercadoPagoService],
+  providers: [EstadoPedidoService, PedidoService, PasarelaMercadoPagoService,EventsGateway
+  ],
   imports: [
     MongooseModule.forFeature([
       { name: EstadoPedido.name, schema: EstadoPedidoSchema },
@@ -23,6 +26,7 @@ import { PasarelaMercadoPagoService } from './pasarela.mercadopago';
     ]),
     AuthModule,
     ProductosManufacturadosModule,
+    EventsModuleModule
   ],
 })
 export class PedidosModule {}
