@@ -17,7 +17,11 @@ import { EventsGateway } from '../events/events.wetways';
 
 @Module({
   controllers: [EstadoPedidoController, PedidoController],
-  providers: [EstadoPedidoService, PedidoService, PasarelaMercadoPagoService,EventsGateway
+  providers: [
+    EstadoPedidoService,
+    PedidoService,
+    PasarelaMercadoPagoService,
+    EventsGateway,
   ],
   imports: [
     MongooseModule.forFeature([
@@ -26,7 +30,7 @@ import { EventsGateway } from '../events/events.wetways';
     ]),
     AuthModule,
     ProductosManufacturadosModule,
-    EventsModuleModule
+    EventsModuleModule,
   ],
 })
 export class PedidosModule {}

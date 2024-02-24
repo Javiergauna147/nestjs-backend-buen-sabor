@@ -47,7 +47,9 @@ export class EstadoPedidoService {
 
   async findByName(name: string) {
     try {
-      return await this.estadoPedidoModel.findOne({ nombre: name.toUpperCase() });
+      return await this.estadoPedidoModel.findOne({
+        nombre: name.toUpperCase(),
+      });
     } catch (error) {
       this.handleExceptions(error);
     }

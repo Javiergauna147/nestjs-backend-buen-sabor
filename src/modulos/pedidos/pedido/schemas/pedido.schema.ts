@@ -16,7 +16,7 @@ export class Pedido {
   })
   cliente: Usuario;
 
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'EstadoPedido'})
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'EstadoPedido' })
   estado: string;
 
   @Prop({
@@ -31,17 +31,24 @@ export class Pedido {
     ],
     _id: false,
   })
-  productos: { cantidad: number; producto: string}[];
+  productos: { cantidad: number; producto: string }[];
 
   @Prop({ required: true })
   precio: number;
 
-  @Prop({type: Object, _id: false, default:{envio:{status:false, value:{direccion:''}}, cupon:{status:false, value:{codigo:''}}}})
-  adicionales:{
-    [x: string]: { status: boolean; value:Object },
-    envio:{status:boolean, value:{direccion:string}},
-    cupon:{status:boolean, value:{codigo:string}}
-  }
+  @Prop({
+    type: Object,
+    _id: false,
+    default: {
+      envio: { status: false, value: { direccion: '' } },
+      cupon: { status: false, value: { codigo: '' } },
+    },
+  })
+  adicionales: {
+    [x: string]: { status: boolean; value: Object };
+    envio: { status: boolean; value: { direccion: string } };
+    cupon: { status: boolean; value: { codigo: string } };
+  };
 }
 
 export const PedidoSchema = SchemaFactory.createForClass(Pedido);

@@ -26,10 +26,10 @@ export class CreatePedidoDto {
   precio: number;
 
   @IsOptional()
-  adicionales:{
-    envio:{estado:Boolean, value:{direccion:string}},
-    cupon:{estado:Boolean, value:{codigo:string}}
-  }
+  adicionales: {
+    envio: { estado: Boolean; value: { direccion: string } };
+    cupon: { estado: Boolean; value: { codigo: string } };
+  };
 }
 
 class Productos {

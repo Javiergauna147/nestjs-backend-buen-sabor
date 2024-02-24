@@ -11,7 +11,6 @@ import { UpdatePedidoDto } from './dto/update-pedido.dto';
 
 @Injectable()
 export class PedidoService {
-  
   constructor(
     @InjectModel(Pedido.name)
     private readonly pedidoModel: Model<Pedido>,
