@@ -37,6 +37,18 @@ export class ProductoManufacturado {
     _id: false,
   })
   articulos: { cantidad: number; articulo: string }[];
+
+  @Prop({
+    type: [
+      raw({
+        nombre: { type: String, required: true },
+        type: { type: String, required: true },
+        data: { type: String, required: true },
+      }),
+    ],
+    _id: false,
+  })
+  imagen: { nombre: string; type: string; data: string };
 }
 
 export const ProductoManufacturadoSchema = SchemaFactory.createForClass(

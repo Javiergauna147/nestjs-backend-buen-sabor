@@ -20,6 +20,10 @@ export class ProductoManufacturadoService {
     createProductoManufacturadoDto.nombre =
       createProductoManufacturadoDto.nombre.toUpperCase();
 
+    // createProductoManufacturadoDto.imagen.data = Buffer.from(
+    //   createProductoManufacturadoDto.imagen.data,
+    // );
+
     try {
       const productoManufacturado = this.productoManufacturadoModel.create(
         createProductoManufacturadoDto,

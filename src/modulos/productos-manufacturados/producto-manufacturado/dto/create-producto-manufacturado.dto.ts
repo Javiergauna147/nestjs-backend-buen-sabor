@@ -1,6 +1,27 @@
 import { Type } from 'class-transformer';
-import { IsMongoId, IsNumber, IsString, ValidateNested } from 'class-validator';
+import {
+  IsMongoId,
+  IsNumber,
+  IsObject,
+  IsString,
+  ValidateNested,
+} from 'class-validator';
 
+class Articulos {
+  @IsNumber()
+  cantidad: number;
+  @IsMongoId()
+  articulo: string;
+}
+
+class Imagen {
+  @IsString()
+  nombre: string;
+  @IsString()
+  type: string;
+  @IsString()
+  data: string;
+}
 export class CreateProductoManufacturadoDto {
   @IsString()
   nombre: string;
@@ -22,11 +43,7 @@ export class CreateProductoManufacturadoDto {
   })
   @Type(() => Articulos)
   articulos: Articulos[];
-}
 
-class Articulos {
-  @IsNumber()
-  cantidad: number;
-  @IsMongoId()
-  articulo: string;
+  @IsObject()
+  imagen: Imagen;
 }
