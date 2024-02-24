@@ -15,6 +15,9 @@ export class Pedido {
     index: true,
   })
   cliente: Usuario;
+  
+  @Prop({ type: Date, default: Date.now })
+  fecha: Date;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'EstadoPedido' })
   estado: string;

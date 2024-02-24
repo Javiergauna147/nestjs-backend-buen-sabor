@@ -15,6 +15,9 @@ export class CreatePedidoDto {
   @IsOptional()
   estado: string;
 
+  
+  fecha: Date;
+
   @ValidateNested({
     each: true,
   })

@@ -29,6 +29,7 @@ export class PedidoService {
     try {
       return this.pedidoModel
         .find({ cliente: userId })
+        .sort({ fecha: -1 })
         .populate([{ path: 'estado', select: 'nombre' }]);
     } catch (error) {
       this.handleExceptions(error);

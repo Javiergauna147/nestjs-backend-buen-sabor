@@ -46,6 +46,7 @@ export class PedidoController {
       createPedidoDto.estado ??
       (await this.estadoPedido.findByName('SOLICITADO')).id ??
       '';
+    createPedidoDto.fecha = new Date();
 
     const productosPromises = createPedidoDto.productos.map(
       async (producto) => {
