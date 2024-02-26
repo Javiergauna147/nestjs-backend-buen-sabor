@@ -42,7 +42,7 @@ export class PedidoService {
 
   async findAllAdministrator() {
     try {
-      return this.pedidoModel.find().populate([
+      return this.pedidoModel.find().sort({ fecha: -1 }).populate([
         { path: 'cliente', select: 'email' },
         { path: 'estado', select: 'nombre' },
         {
