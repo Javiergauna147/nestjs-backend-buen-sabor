@@ -148,12 +148,13 @@ export class PedidoController {
     );
   }
 
-  @Put('update')
+  @Put('updateEstadoPedido')
   @Auth(...['ADMINISTRADOR'])
   async update(@Body() updatePedidoDto: UpdatePedidoDto) {
-    let result = await this.pedidoService.updateOne(updatePedidoDto);
     let pedido = await this.pedidoService.findById(updatePedidoDto._id);
-    return result;
+    pedido.estado = updatePedidoDto.estado;
+    await pedido.updateOne(pedido);
+    return pedido;
   }
 
   @Get('find-all-administrator')
